@@ -45,13 +45,12 @@ namespace WebApplicationDemo
             try
             {
                 // set export excel file path
-                string excelFilePath = Server.MapPath("/Content/Data/") + "ExportExcel_" + DateTime.Now.ToString("ddMMYYYY_hhmmss");
-                // check if file already exists then delete it and create one.
-                if (File.Exists(excelFilePath))
-                {
-                    File.Delete(excelFilePath);
-                }
-                File.Create(excelFilePath);
+                string excelFilePath = Server.MapPath("/Content/Data/") + "ExportExcel_" + DateTime.Now.ToString("ddMMYYYY_hhmmss") + ".xls";
+                // create excel file and save in the folder               
+                var app = new Microsoft.Office.Interop.Excel.Application();
+                var wb = app.Workbooks.Add();
+                wb.SaveAs(excelFilePath);
+                wb.Close();
                 //Create an Excel application instance
                 Excel.Application excelApp = new Excel.Application();
                 string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
